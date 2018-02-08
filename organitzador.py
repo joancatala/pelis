@@ -4,17 +4,12 @@
 # Modulets
 #
 from os import listdir
-from reportlab.pdfgen import canvas
-from reportlab.platypus import (
-    BaseDocTemplate,
-    PageTemplate,
-    Frame,
-    Paragraph
-)
+from reportlab.platypus import ( BaseDocTemplate, PageTemplate, Frame, Paragraph)
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import cm
 
-
+# Generem un fitxer de text "fitxer.txt"
+#
 def generem_txt(filename):
 
     fitxer = open ( 'fitxer.txt', 'w' )
@@ -24,16 +19,19 @@ def generem_txt(filename):
     # Llegim el directori de peli i muntem el "fitxer.txt" resultant
     #
     for peli in listdir("/mnt/disc1/joancatala/files/Pelis/"):
-            fitxer.write(str(contador) + ' ' + peli + '\n')
+            fitxer.write(str(contador) + '         ' + peli + '\n')
             contador=contador+1
             linia=linia-20
     fitxer.close()
 
 
-
+# Generem el fitxer de pdf "fitxer.pdf"
+#
 def build_pdf(filename):
     doc = BaseDocTemplate(filename)
     column_gap = 1 * cm
+
+    cos = ParagraphStyle('personalitzat', fontSize=8.5, leading=6, spaceBefore=5)
 
     doc.addPageTemplates(
         [
@@ -61,11 +59,11 @@ def build_pdf(filename):
             ),
         ]
     )
-   
+
     flowables=[] 
     fitxer = open ( 'fitxer.txt', 'r' )
     for i in fitxer: 
-       flowables.append (Paragraph( i , ParagraphStyle('default')),)  
+       flowables.append (Paragraph( i , cos),)  
     
     doc.build(flowables)
 
