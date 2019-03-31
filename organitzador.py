@@ -17,14 +17,12 @@ def generem_txt(filename):
 
     fitxer = open ( 'pelis_brut.txt', 'w' )
     contador = 0
-    linia = 750
 
     # Llegim el directori de peli i muntem el "pelis_brut.txt" resultant
     #
-    for peli in listdir("/mnt/disc1/Pelis/"):
+    for peli in sorted(os.listdir('/mnt/disc1/Pelis/')):        
             fitxer.write(str(contador) + ' ' + peli + '\n')
             contador=contador+1
-            linia=linia-20
     fitxer.close()
 
 
